@@ -1,0 +1,69 @@
+body{
+    margin: 0%;
+    padding: 0%;
+    background-color: rgb(29, 124, 202);
+}
+.main{
+    background-color: white !important;
+    height: auto !important;
+    width: 60%;
+    margin-top: 120px;
+    margin-bottom: 120px;
+    padding: 20px;
+    padding-bottom: 40px;
+    border-radius: 10px;
+
+    
+}
+.heading{
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 39px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 1px 1px 2px rgb(29, 124, 202) ;
+    
+}
+.main2{
+    display: flex !important;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+#add{
+    font-size: 5ch;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.divClass{
+    display: flex;
+    justify-content: end; 
+}
+span{
+    font-size: 22px;
+    padding-right: 2px;
+}
+.list{
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    list-style-type: circle;
+}
+.edit{
+    padding-right: 20px;
+}
+.edit:hover{
+    color: rgba(0, 128, 0, 0.753);
+    cursor: pointer;
+}
+.deleted:hover{
+    color: red;
+    cursor: pointer;
+}
+#clear{
+    background-color: rgb(29, 124, 202);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}  
