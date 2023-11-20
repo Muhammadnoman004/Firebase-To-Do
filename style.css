@@ -1,6 +1,6 @@
 body{
-    margin: 0%;
-    padding: 0%;
+    margin: 0;
+    padding: 0;
     background-color: rgb(29, 124, 202);
 }
 .main{
@@ -36,18 +36,39 @@ body{
     cursor: pointer;
 }
 
+#ul {
+    padding: 0;
+}
+
 .divClass{
     display: flex;
-    justify-content: end; 
+    gap: 10px;
 }
 span{
     font-size: 22px;
     padding-right: 2px;
+    
 }
 .list{
     font-size: 18px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    list-style-type: circle;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.liTextDiv {
+    word-wrap: break-word;
+}
+
+.liTextDiv p {
+    word-break: break-all;
+    margin-bottom: 0;
 }
 .edit{
     padding-right: 20px;
