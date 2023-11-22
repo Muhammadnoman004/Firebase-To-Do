@@ -21,7 +21,7 @@ body{
     font-size: 39px;
     font-weight: bold;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-shadow: 1px 1px 2px rgb(29, 124, 202) ;
+    text-shadow: 1px 1px 2px rgb(29, 124, 202);
     
 }
 .main2{
@@ -30,12 +30,17 @@ body{
     align-items: center;
     
 }
+#inp{
+    border: 1px solid black;
+}
 #add{
     font-size: 5ch;
     padding-left: 10px;
     cursor: pointer;
 }
-
+#add:hover{
+    color: rgb(18, 113, 190) !important;
+}
 #ul {
     padding: 0;
 }
@@ -43,12 +48,9 @@ body{
 .divClass{
     display: flex;
     gap: 10px;
+    font-size: larger !important;
 }
-span{
-    font-size: 22px;
-    padding-right: 2px;
-    
-}
+
 .list{
     font-size: 18px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -57,11 +59,15 @@ span{
     align-items: center;
     gap: 10px;
     width: 100%;
-    border: 1px solid black;
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 12px;
+    background-color: rgba(220, 220, 220, 0.452);
+    border-radius: 5px;
+    list-style-type: circle !important;
 }
-
+.list:hover{
+    background-color: rgba(220, 220, 220, 0.699);
+}
 .liTextDiv {
     word-wrap: break-word;
 }
@@ -88,3 +94,6 @@ span{
     padding: 10px;
     border-radius: 5px;
 }  
+#clear:hover{
+    background-color: rgb(18, 113, 190) ;
+}
