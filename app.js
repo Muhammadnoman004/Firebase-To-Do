@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getFirestore ,  collection, addDoc} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
+import { getFirestore ,  collection, addDoc , onSnapshot } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDzP2FAx12icdz9EnYVPLndzXgwGfUa9LE",
   authDomain: "to-do-app-bde54.firebaseapp.com",
@@ -18,9 +18,23 @@ let getaddbtn = document.querySelector("#add")
 let getul = document.querySelector("#ul");
 let getclearbtn = document.querySelector("#clear");
 
-getaddbtn.addEventListener("click" , async ()=>{
 
-    
+function getTodos(){
+
+  onSnapshot(collection(db, "ToDos"), (data) => {
+  data.docChanges().forEach((todo) =>{
+    console.log('todo hai' , todo.doc.data());
+  })
+  
+});
+
+}
+
+getTodos()
+
+
+
+getaddbtn.addEventListener("click" , async ()=>{
 
     let getli = document.createElement("li");
     getli.className = "list"
@@ -30,7 +44,6 @@ getaddbtn.addEventListener("click" , async ()=>{
     let litext = document.createTextNode(getinp.value);
 
   
-    
     try {
        
       const docRef = await addDoc(collection(db, "ToDos"), {
@@ -44,7 +57,6 @@ getaddbtn.addEventListener("click" , async ()=>{
       }
 
       
-      
     liTextPara.appendChild(litext);
     liTextDiv.appendChild(liTextPara);
     getli.appendChild(liTextDiv)
@@ -55,6 +67,7 @@ getaddbtn.addEventListener("click" , async ()=>{
     div.classList.add("divClass");
     
     let editIcon = document.createElement("i");
+    editIcon.setAttribute('onclick' , 'editTodo(this)')
     editIcon.className = 'edit'
     editIcon.classList.add("fa");   
     editIcon.classList.add("fa-pencil-square");
@@ -70,13 +83,25 @@ getaddbtn.addEventListener("click" , async ()=>{
     getli.appendChild(div);
     
     
-    
   })
 
+
+
+
+  function delTodo(event){
+    event.parentNode.parentNode.remove();
+  }
   
-  
+  function editTodo(e){
+    let editToDo = prompt("Edit your ToDo" , e.parentNode.parentNode.firstChild.textContent)
+    e.parentNode.parentNode.firstChild.textContent = editToDo
+  }
+
+
   getclearbtn.addEventListener("click" , ()=>{
     getul.innerHTML = ""
   })
   
- 
+  window.delTodo = delTodo
+  window.editTodo = editTodo
+  
