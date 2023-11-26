@@ -1,10 +1,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+import {getAuth} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 import {
   getFirestore,
   collection,
   addDoc,
   onSnapshot,
   deleteDoc,
+  updateDoc,
   doc,
 } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
 const firebaseConfig = {
@@ -22,17 +24,27 @@ const db = getFirestore(app);
 let getinp = document.querySelector("#inp");
 let getaddbtn = document.querySelector("#add");
 let getul = document.querySelector("#ul");
-let getclearbtn = document.querySelector("#clear");
+let getclearbtn = document.querySelector(".clear");
+let getLogOutbtn = document.querySelector("#logOut");
+
+let UserId = localStorage.getItem("UserId")
+let TodoIds = [];
+
+//  Read ToDo from firebase //
 
 function getTodos() {
-  onSnapshot(collection(db, "ToDos"), (data) => {
+  onSnapshot(collection(db, UserId), (data) => {
     data.docChanges().forEach((todo) => {
+      TodoIds .push(todo.doc.id)
       if (todo.type == "removed") {
         let delLi = document.getElementById(todo.doc.id);
-        if (delLi) {
+        if(delLi){
+
           delLi.remove();
         }
-      } else {
+      
+      }
+       else if (todo.type == "added") {
         let getli = document.createElement("li");
         getli.className = "list";
         getli.setAttribute("id", todo.doc.id);
@@ -51,7 +63,7 @@ function getTodos() {
         div.classList.add("divClass");
 
         let editIcon = document.createElement("i");
-        editIcon.setAttribute("onclick", "editTodo(this)");
+        editIcon.setAttribute("onclick", `editTodo(this , '${todo.doc.id}')`);
         editIcon.className = "edit";
         editIcon.classList.add("fa");
         editIcon.classList.add("fa-pencil-square");
@@ -65,38 +77,85 @@ function getTodos() {
         div.appendChild(delIcon);
         getli.appendChild(div);
       }
-    });
+      });
   });
 }
 
 getTodos();
 
+//  Add ToDo in firebase  //
+
 getaddbtn.addEventListener("click", async () => {
-  try {
-    const docRef = await addDoc(collection(db, "ToDos"), {
-      Text: getinp.value,
-      Time: new Date().toLocaleString(),
+
+  if(getinp.value == ""){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please Enter a Value",
     });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
+  }
+  else{
+    try {
+      const docRef = await addDoc(collection(db, UserId), {
+        Text: getinp.value,
+        Time: new Date().toLocaleString(),
+      });
+    } 
+    catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 });
 
+//  Delete ToDo from firebase  //
+
 async function delTodo(id) {
-  await deleteDoc(doc(db, "ToDos", id));
+  await deleteDoc(doc(db, UserId , id));
 }
 
-function editTodo(e) {
-  let editToDo = prompt(
-    "Edit your ToDo",
-    e.parentNode.parentNode.firstChild.textContent
-  );
-  e.parentNode.parentNode.firstChild.textContent = editToDo;
+//  Edit ToDo from firebase   //
+
+async function editTodo(e , id) {
+  
+  let editToDo = prompt("Enter Edit ToDo",e.parentNode.parentNode.firstChild.textContent);
+  e.parentNode.parentNode.firstChild.textContent = editToDo
+  if(editToDo){
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Your ToDo has been updated",
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
+  await updateDoc(doc(db , UserId , id) , {
+    Text: editToDo,
+    Time: new Date().toLocaleString()
+  });
 }
 
-getclearbtn.addEventListener("click", () => {
+//  Clear all ToDos from firebase   // 
+
+getclearbtn.addEventListener("click", async () => {
+  
   getul.innerHTML = "";
+  Swal.fire({
+    title: "Deleted!",
+    text: "Your ToDos has been deleted!",
+    icon: "success"
+  });
+  const arr = [];
+  for(let i = 0; i < TodoIds.length; i++){
+    arr.push(await deleteDoc(doc(db, UserId, TodoIds[i])));
+    
+  }
+  Promise.all(arr)
+  .then((res) => {
+    console.log('All ToDos has been deleted');
+  })
+  .catch((err) => {
+    console.log('error-->' , err);
+  })
 });
 
 window.delTodo = delTodo;

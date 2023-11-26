@@ -1,0 +1,136 @@
+body {
+    background-color: rgb(40, 59, 110);
+   
+}
+
+@font-face {
+    font-family: special;
+    src: url('./AbrilFatface-Regular.ttf');
+}
+
+#h1 {
+    padding-top: 40px;
+    color: rgb(63, 94, 179);
+    font-family: special;
+    text-shadow: 2px 2px 1px black;
+    font-weight: bolder;
+    word-spacing: 7px;
+    letter-spacing: 2px;
+    font-size: 40px;
+    border: 1px 1px solid rgb(22, 9, 134) !important;
+    text-align: center;
+
+}
+
+.btnn{
+    background-color: rgb(63, 94, 179);
+    color: white;
+    border: none;
+    padding: 7px;
+    margin-top: -7px;
+    width: 90px;
+    border-radius: 6px;
+    font-size: large;
+}
+.btnn:focus{
+    border: 1px solid black;
+}
+.button{
+    display: flex;
+    justify-content: space-evenly !important;
+    
+}
+
+
+input{
+    width: 100% !important;
+    margin-top: 20px;
+    border: 1px solid rgb(63, 94, 179) !important;
+}
+.main{
+    background-color: whitesmoke;
+    box-shadow: inset 0px 0px 15px;
+    width: 350px;
+    margin-top: 130px;
+    border-radius: 10px;
+    padding: 30px 15px 70px 15px;
+    
+}
+
+.forget{
+    position: absolute;
+    top: 60px;
+    left: 37%;    
+}
+.para{
+    padding-top: 10px;
+}
+
+#para{
+    color: rgb(63, 94, 179);
+    font-weight: 700;
+    
+}
+
+
+#F_Pass{
+    text-align: center;
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: rgb(63, 94, 179);
+    text-shadow: 1px 1px 2px black;
+    
+        
+}
+#send_btn{
+
+    background-color: rgb(63, 94, 179);
+    color: white;
+    border: none !important;
+    padding: 8px;
+    margin-bottom: 7px;
+    width: fit-content;
+    border-radius: 6px;
+    font-size: large;
+    
+    
+}
+#send_btn:focus{
+    border: 1px solid black !important;
+}
+.main2{
+    width: 80%;
+    height: auto;
+    padding: 30px;
+    margin-top: 180px;
+}
+
+.main3{
+    height: fit-content;
+    width: fit-content;
+    margin-top: 220px;
+}
+#wel{
+    padding: 35px;
+    text-align: center;
+    font-size: 6ch;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: rgb(63, 94, 179);
+    text-shadow: 1px 1px 2px black;
+}
+#userEmail{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    font-size: 3ch;
+    color: rgb(63, 94, 179);
+    text-shadow: 1px 1px 2px black;
+    position: relative;
+    bottom: 45px;
+}
+
+  
+
+  
