@@ -17,6 +17,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+
+if(localStorage.getItem("UserId")) {
+  location.href = "./index.html"
+}
+
 let Btn = document.querySelector("#signUp");
 
 Btn.addEventListener("click", () => {

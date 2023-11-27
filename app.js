@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import {getAuth} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+import {getAuth} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 import {
   getFirestore,
   collection,
@@ -20,6 +20,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 let getinp = document.querySelector("#inp");
 let getaddbtn = document.querySelector("#add");
@@ -29,6 +30,12 @@ let getLogOutbtn = document.querySelector("#logOut");
 
 let UserId = localStorage.getItem("UserId")
 let TodoIds = [];
+
+
+if(!UserId){
+  location.href = "./signUp.html"
+}
+
 
 //  Read ToDo from firebase //
 
@@ -117,9 +124,9 @@ async function delTodo(id) {
 
 async function editTodo(e , id) {
   
-  let editToDo = prompt("Enter Edit ToDo",e.parentNode.parentNode.firstChild.textContent);
-  e.parentNode.parentNode.firstChild.textContent = editToDo
+  let editToDo = prompt("Enter Edit ToDo", e.parentNode.parentNode.firstChild.textContent);
   if(editToDo){
+    e.parentNode.parentNode.firstChild.textContent = editToDo
     Swal.fire({
       position: "center",
       icon: "success",
@@ -127,11 +134,11 @@ async function editTodo(e , id) {
       showConfirmButton: false,
       timer: 2000
     });
+    await updateDoc(doc(db , UserId , id) , {
+      Text: editToDo,
+      Time: new Date().toLocaleString()
+    });
   }
-  await updateDoc(doc(db , UserId , id) , {
-    Text: editToDo,
-    Time: new Date().toLocaleString()
-  });
 }
 
 //  Clear all ToDos from firebase   // 
@@ -157,6 +164,14 @@ getclearbtn.addEventListener("click", async () => {
     console.log('error-->' , err);
   })
 });
+
+//  logOut  //
+
+getLogOutbtn.addEventListener("click" , ()=>{
+  localStorage.removeItem("UserId");
+  location.reload()
+
+})
 
 window.delTodo = delTodo;
 window.editTodo = editTodo;
