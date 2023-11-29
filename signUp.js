@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword,GoogleAuthProvider , signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 import { getFirestore ,  collection, addDoc } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
 const firebaseConfig = {
@@ -23,6 +23,7 @@ if(localStorage.getItem("UserId")) {
 }
 
 let Btn = document.querySelector("#signUp");
+let googlebtn = document.querySelector("#Google");
 
 Btn.addEventListener("click", () => {
   let message = document.querySelector("#para");
@@ -68,6 +69,35 @@ Btn.addEventListener("click", () => {
     }
 
 });
+
+Google.addEventListener("click" , ()=>{
+  const provider = new GoogleAuthProvider();  
+
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+  
+    const user = result.user;
+    console.log(user)
+   
+  
+  }).catch((error) => {
+    
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage)
+    
+    const email = error.customData.email;
+   
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    
+  });
+
+
+})
+
 
 let getBtn = document.querySelector('#Sbutton1');
 getBtn.addEventListener('click' , ()=>{
